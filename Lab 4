@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+class menu { 
+    private String item; 
+    private double price;
+    char choice;
+    String[] itemMenu = {"Nasi Lemak", "Roti", "Teh Tarik", "Kopi O"};;
+    double[] itemPrice = {2.0, 1.0, 1.5, 1.0};
+    
+    menu (char c, double p){
+        choice = c; price = p;
+    }
+    
+    void Choice (char choice){
+        switch(choice){
+            case '1':
+                item = itemMenu[0];
+                price = itemPrice[0];
+                break;
+            case '2':
+                item = itemMenu[1];
+                price = itemPrice[1];
+                break;
+            case '3':
+                item = itemMenu[2];
+                price = itemPrice[2];
+                break;
+            case '4':
+                item = itemMenu[3];
+                price = itemPrice[3];
+                break;
+        }
+        
+    }
+    
+    public String printMenuItem(){
+        return item;
+    }
+    public double calcPrice(int quantity){
+        return price*quantity;
+    }
+    
+}
+
+public class Lab4_MenuDemo {
+   public static void main(String args[]) throws java.io.IOException{
+        char choice = '0';
+        int qty;
+        double total=0.0, price=0.0;
+        String[] itemMenu = {"Nasi Lemak", "Roti", "Teh Tarik", "Kopi O"};;
+        double[] itemPrice = {2.0, 1.0, 1.5, 1.0};
+        Scanner scan = new Scanner(System.in);
+        menu order = new menu(choice, price);
+      
+        System.out.println("Menu:");
+        System.out.println("----------------------------------------------");
+        for (int i = 0; i < itemMenu.length; i++){
+            System.out.print("[" + (i+1) + "] " + itemMenu[i]);
+            System.out.println("\t[RM" + itemPrice[i] + "]");
+        }
+        System.out.println("----------------------------------------------");     
+        System.out.println("Place order [1-4] or type q to exit.\n");
+      
+        do{
+            System.out.print("Add order: ");
+            choice = (char) System.in.read();
+            if (choice!='q'){
+                order.Choice(choice);
+                System.out.print("\t" + order.printMenuItem() + " - Quantity: ");
+                qty = scan.nextInt();
+                price = order.calcPrice(qty);
+                System.out.println("\tPrice: RM" + price + "\n");
+                total = total + price;
+            }
+        }while (choice!='q');
+      
+        System.out.println("\nThank you for your order.");
+        System.out.printf("Total due: RM %.2f", total);
+   }
+}
